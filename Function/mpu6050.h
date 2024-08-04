@@ -376,8 +376,8 @@ void MPU6050ReadAcc(short *accData);
 void MPU6050_ReturnTemp(float*Temperature);
 void MPU6050_Init(void);
 uint8_t MPU6050ReadID(void);
-void PMU6050_ReadData(uint8_t reg_add,unsigned char*Read,uint8_t num);
-void PMU6050_WriteReg(uint8_t reg_add,uint8_t reg_dat);
+uint8_t MPU6050_WriteReg(uint8_t reg_add,uint8_t reg_dat);
+uint8_t MPU6050_ReadData(uint8_t reg_add,unsigned char* Read,uint8_t num);
 
 void MPU6050_PWR_MGMT_1_INIT(void);
 

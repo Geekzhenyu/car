@@ -6,9 +6,9 @@
 	* @param	 reg_data:要写入的数据
   * @retval  
   */
-void MPU6050_WriteReg(uint8_t reg_add,uint8_t reg_dat)
+uint8_t MPU6050_WriteReg(uint8_t reg_add,uint8_t reg_dat)
 {
-	HAL_I2C_Mem_Write(&hi2c2,MPU6050_ADDRESS,reg_add,I2C_MEMADD_SIZE_8BIT,&reg_dat,1,100);
+	return HAL_I2C_Mem_Write(&hi2c2,MPU6050_ADDRESS,reg_add,I2C_MEMADD_SIZE_8BIT,&reg_dat,1,100);
 }
 
 /**
@@ -18,9 +18,9 @@ void MPU6050_WriteReg(uint8_t reg_add,uint8_t reg_dat)
 	* @param	 num：要读取的数据量
   * @retval  
   */
-void MPU6050_ReadData(uint8_t reg_add,unsigned char* Read,uint8_t num)
+uint8_t MPU6050_ReadData(uint8_t reg_add,unsigned char* Read,uint8_t num)
 {
-	HAL_I2C_Mem_Read(&hi2c2,MPU6050_ADDRESS,reg_add,I2C_MEMADD_SIZE_8BIT,Read,num,100);
+	return HAL_I2C_Mem_Read(&hi2c2,MPU6050_ADDRESS,reg_add,I2C_MEMADD_SIZE_8BIT,Read,num,100);
 }
 
 

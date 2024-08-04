@@ -24,6 +24,7 @@
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
 #include "mpu6050.h"
+#include "inv_mpu.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -58,6 +59,7 @@ void SystemClock_Config(void);
 uint16_t accData[3];
 uint16_t gyroData[3];
 float temp=0.0f;
+float buf[3]={0.0f};
 
 /* USER CODE END 0 */
 
@@ -93,6 +95,7 @@ int main(void)
   MX_I2C2_Init();
   /* USER CODE BEGIN 2 */
   MPU6050_Init();
+  mpu6050_dmp_init();
   /* USER CODE END 2 */
 
   /* Infinite loop */
@@ -102,10 +105,12 @@ int main(void)
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
-    MPU6050ReadAcc(accData);
+    /*MPU6050ReadAcc(accData);
     MPU6050ReadGyro(gyroData);
     MPU6050_ReturnTemp(&temp);
-    HAL_Delay(200);
+    HAL_Delay(200);*/
+    mpu6050_dmp_get_data(buf,&buf[1],&buf[2]);
+    HAL_Delay(100);
 
   }
   /* USER CODE END 3 */
