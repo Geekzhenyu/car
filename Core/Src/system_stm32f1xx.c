@@ -355,13 +355,13 @@ void SystemInit_ExtMemCtl(void)
   /* Enable FSMC clock */
   RCC->AHBENR = 0x00000114U;
 
-  /* Delay after an RCC peripheral clock enabling */
+  /* HAL_Delay after an RCC peripheral clock enabling */
   tmpreg = READ_BIT(RCC->AHBENR, RCC_AHBENR_FSMCEN);
   
   /* Enable GPIOD, GPIOE, GPIOF and GPIOG clocks */
   RCC->APB2ENR = 0x000001E0U;
   
-  /* Delay after an RCC peripheral clock enabling */
+  /* HAL_Delay after an RCC peripheral clock enabling */
   tmpreg = READ_BIT(RCC->APB2ENR, RCC_APB2ENR_IOPDEN);
 
   (void)(tmpreg);

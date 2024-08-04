@@ -18,11 +18,12 @@
 /* USER CODE END Header */
 /* Includes ------------------------------------------------------------------*/
 #include "main.h"
+#include "i2c.h"
 #include "gpio.h"
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
-
+#include "mpu6050.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -54,6 +55,9 @@ void SystemClock_Config(void);
 
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
+uint16_t accData[3];
+uint16_t gyroData[3];
+float temp=0.0f;
 
 /* USER CODE END 0 */
 
@@ -86,8 +90,9 @@ int main(void)
 
   /* Initialize all configured peripherals */
   MX_GPIO_Init();
+  MX_I2C2_Init();
   /* USER CODE BEGIN 2 */
-
+  MPU6050_Init();
   /* USER CODE END 2 */
 
   /* Infinite loop */
@@ -97,8 +102,11 @@ int main(void)
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
-    HAL_GPIO_TogglePin(LED_GPIO_Port,LED_Pin);
+    MPU6050ReadAcc(accData);
+    MPU6050ReadGyro(gyroData);
+    MPU6050_ReturnTemp(&temp);
     HAL_Delay(200);
+
   }
   /* USER CODE END 3 */
 }
