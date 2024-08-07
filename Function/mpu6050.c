@@ -1,5 +1,29 @@
 #include "mpu6050.h"
 
+float pitch,roll,yaw;
+
+uint8_t mpu6050_filter_angle()
+{
+	uint16_t gyroData[3];
+	float gyro_x,gyro_y;
+	while(mpu6050_dmp_get_data(&pitch,&roll,&yaw)!=0){}
+	MPU6050ReadGyro(gyroData);
+	//角速度原始值处理过程
+	//陀螺仪配置寄存器0X1B内写入0x18，设置范围为2000deg/s。换算关系：2^16/4000=16.4LSB/(°/S)
+	////计算角速度
+	if(gyroData[0]<32768) gyro_x=-(gyroData[0]/16.4);
+	if(gyroData[0]>32768) gyro_x=+(65535-gyroData[0])/16.4;
+	if(gyroData[1]<32768) gyro_y=-(gyroData[1]/16.4);
+	if(gyroData[1]>32768) gyro_y=+(65535-gyroData[1])/16.4;
+
+	Kalman_Filter_X(pitch,gyro_x);  //卡尔曼滤波计算X倾角
+	Kalman_Filter_Y(roll,gyro_y);  //卡尔曼滤波计算Y倾角
+
+	pitch = Angle_X_Final;
+	roll = Angle_Y_Final;
+
+	return 0;
+}
 
 uint8_t IIC_Write(uint8_t addr,uint8_t reg, uint8_t len, uint8_t *dat)
 {

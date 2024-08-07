@@ -58,11 +58,10 @@ void SystemClock_Config(void);
 
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
-uint16_t accData[3];
-uint16_t gyroData[3];
+
 float temp=0.0f;
 float buff[3]={0};
-float pitch,roll,yaw;
+
 
 /* USER CODE END 0 */
 
@@ -115,9 +114,9 @@ int main(void)
     HAL_Delay(200);*/
     //mpu6050_dmp_get_data(&buff[0],&buff[1],&buff[2]);
     //while(mpu6050_dmp_get_data(&buff[0],&buff[1],&buff[2])!=0){}
-    while(mpu6050_dmp_get_data(&pitch,&roll,&yaw)!=0){}
+    // while(mpu6050_dmp_get_data(&pitch,&roll,&yaw)!=0){}
+    mpu6050_filter_angle();
     print(&huart1,"%.2f %.2f %.2f\r\n",pitch,roll,yaw);
-    HAL_Delay(10);
    // HAL_Delay(2);
 
   }

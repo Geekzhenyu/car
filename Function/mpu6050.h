@@ -1,6 +1,13 @@
 #ifndef __MPU6050_H
 #define __MPU6050_H
 #include "stm32f1xx_hal.h"
+#include "inv_mpu.h"
+#include "kalman.h"
+
+extern float pitch,roll,yaw;
+extern float Angle_X_Final; 		//X最终倾斜角度
+extern float Angle_Y_Final; 		//Y最终倾斜角度
+
 
 //模块的A0引脚接GND，IIC的7位地址为0x68，若接到VCC，需要改为0x69
 #define MPU6050_ADDRESS  (0x68<<1)      //MPU6050器件读地址
@@ -384,5 +391,7 @@ uint8_t IIC_Read(uint8_t addr, uint8_t reg, uint8_t len, uint8_t *dat);
 
 void MPU6050_PWR_MGMT_1_INIT(void);
 
+
+uint8_t mpu6050_filter_angle();
 
 #endif
