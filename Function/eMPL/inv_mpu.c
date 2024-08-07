@@ -43,8 +43,8 @@
 //#include "msp430_interrupt.h"
 #include "mpu6050.h"                    /* 包含相关头文件 */
 #include "inv_mpu_dmp_motion_driver.h"
-#define i2c_write   DMP_I2C_Write                        /* IIC写通讯函数 */
-#define i2c_read    DMP_I2C_Read                         /* IIC读通讯函数 */
+#define i2c_write   IIC_Write                        /* IIC写通讯函数 */
+#define i2c_read    IIC_Read                         /* IIC读通讯函数 */
 #define delay_ms    HAL_Delay                            /* 毫秒级延时函数 */
 #define get_ms      get_clock_ms                        /* 获取毫秒级时间戳函数 */
 static inline int reg_int_cb(struct int_param_s *int_param) /* 中断回调函数（未实现） */
@@ -607,16 +607,6 @@ static struct gyro_state_s st = {
 static int setup_compass(void);
 #define MAX_COMPASS_SAMPLE_RATE (100)
 #endif
-
-
-uint8_t DMP_I2C_Write(uint8_t addr,uint8_t reg, uint8_t len, uint8_t *dat)
-{
-    return HAL_I2C_Mem_Write(&hi2c2,addr,reg,I2C_MEMADD_SIZE_8BIT,dat,len,100);
-}
-uint8_t DMP_I2C_Read(uint8_t addr, uint8_t reg, uint8_t len, uint8_t *dat)
-{
-    return HAL_I2C_Mem_Read(&hi2c2,addr,reg,I2C_MEMADD_SIZE_8BIT,dat,len,100);
-}
 
 /**
  *  @brief      Enable/disable data ready interrupt.
@@ -2856,7 +2846,7 @@ static inline unsigned short inv_orientation_matrix_to_scalar(const signed char 
 }
 
 /**
- * @brief       ATK-MS6050 DMP初始化
+ * @brief      mpu6050 DMP初始化
  * @param       无
  * @retval      0: 函数执行成功
  *              1: 函数执行失败
@@ -2961,7 +2951,7 @@ uint8_t mpu6050_dmp_get_data(float *pitch, float *roll, float *yaw)
     unsigned char more;
     long quat[4];
     
-    /* 读取mpu6050 FIFO中数据的频率需与宏DEFAULT_MPU_HZ定义的频率一直
+        /* 读取mpu6050 FIFO中数据的频率需与宏DEFAULT_MPU_HZ定义的频率一致
      * 读取得太快或太慢都可能导致读取失败
      */
     if (dmp_read_fifo(gyro, accel, quat, &sensor_timestamp, &sensors, &more) != 0)

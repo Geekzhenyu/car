@@ -1,5 +1,14 @@
 #include "mpu6050.h"
 
+
+uint8_t IIC_Write(uint8_t addr,uint8_t reg, uint8_t len, uint8_t *dat)
+{
+	return HAL_I2C_Mem_Write(&hi2c2,addr,reg,I2C_MEMADD_SIZE_8BIT,dat,len,100);
+}
+uint8_t IIC_Read(uint8_t addr, uint8_t reg, uint8_t len, uint8_t *dat)
+{
+	return HAL_I2C_Mem_Read(&hi2c2,addr,reg,I2C_MEMADD_SIZE_8BIT,dat,len,100);
+}
 /**
   * @brief   Ð´Êý¾Ýµ½MPU6050¼Ä´æÆ÷
   * @param   reg_add:¼Ä´æÆ÷µØÖ·
@@ -8,7 +17,7 @@
   */
 uint8_t MPU6050_WriteReg(uint8_t reg_add,uint8_t reg_dat)
 {
-	return HAL_I2C_Mem_Write(&hi2c2,MPU6050_ADDRESS,reg_add,I2C_MEMADD_SIZE_8BIT,&reg_dat,1,100);
+	return IIC_Write(MPU6050_ADDRESS,reg_add,1,&reg_dat);
 }
 
 /**
@@ -20,7 +29,7 @@ uint8_t MPU6050_WriteReg(uint8_t reg_add,uint8_t reg_dat)
   */
 uint8_t MPU6050_ReadData(uint8_t reg_add,unsigned char* Read,uint8_t num)
 {
-	return HAL_I2C_Mem_Read(&hi2c2,MPU6050_ADDRESS,reg_add,I2C_MEMADD_SIZE_8BIT,Read,num,100);
+	return IIC_Read(MPU6050_ADDRESS,reg_add,num,Read);
 }
 
 

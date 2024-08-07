@@ -19,12 +19,14 @@
 /* Includes ------------------------------------------------------------------*/
 #include "main.h"
 #include "i2c.h"
+#include "usart.h"
 #include "gpio.h"
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
 #include "mpu6050.h"
 #include "inv_mpu.h"
+#include "FS_Debug.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -59,7 +61,8 @@ void SystemClock_Config(void);
 uint16_t accData[3];
 uint16_t gyroData[3];
 float temp=0.0f;
-float buf[3]={0.0f};
+float buff[3]={0};
+float pitch,roll,yaw;
 
 /* USER CODE END 0 */
 
@@ -93,9 +96,10 @@ int main(void)
   /* Initialize all configured peripherals */
   MX_GPIO_Init();
   MX_I2C2_Init();
+  MX_USART1_UART_Init();
   /* USER CODE BEGIN 2 */
-  MPU6050_Init();
   mpu6050_dmp_init();
+  FS_Debug("start\r\n");
   /* USER CODE END 2 */
 
   /* Infinite loop */
@@ -109,8 +113,12 @@ int main(void)
     MPU6050ReadGyro(gyroData);
     MPU6050_ReturnTemp(&temp);
     HAL_Delay(200);*/
-    mpu6050_dmp_get_data(buf,&buf[1],&buf[2]);
-    HAL_Delay(100);
+    //mpu6050_dmp_get_data(&buff[0],&buff[1],&buff[2]);
+    //while(mpu6050_dmp_get_data(&buff[0],&buff[1],&buff[2])!=0){}
+    while(mpu6050_dmp_get_data(&pitch,&roll,&yaw)!=0){}
+    print(&huart1,"%.2f %.2f %.2f\r\n",pitch,roll,yaw);
+    HAL_Delay(10);
+   // HAL_Delay(2);
 
   }
   /* USER CODE END 3 */
