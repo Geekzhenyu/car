@@ -2,8 +2,9 @@
 #include "mpu6050.h"
 #include "math.h"
 
-//卡尔曼解算法库
+//以后移植，可以直接参考void Angle_Calcu(void)所写的逻辑
 
+//卡尔曼解算法库
 
 float Gyro_x;				//X轴陀螺仪数据暂存
 float Gyro_y;        		//Y轴陀螺仪数据暂存

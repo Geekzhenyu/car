@@ -19,6 +19,7 @@
 /* Includes ------------------------------------------------------------------*/
 #include "main.h"
 #include "i2c.h"
+#include "spi.h"
 #include "usart.h"
 #include "gpio.h"
 
@@ -27,6 +28,9 @@
 #include "mpu6050.h"
 #include "inv_mpu.h"
 #include "FS_Debug.h"
+#include "lcd_init.h"
+#include "lcd.h"
+#include "pic.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -96,9 +100,18 @@ int main(void)
   MX_GPIO_Init();
   MX_I2C2_Init();
   MX_USART1_UART_Init();
+  MX_SPI2_Init();
   /* USER CODE BEGIN 2 */
   mpu6050_dmp_init();
+  LCD_Init();
+  LCD_Fill(0,0,LCD_W,LCD_H,WHITE);
+
   FS_Debug("start\r\n");
+
+  uint8_t i,j;
+  float t=0;
+
+
   /* USER CODE END 2 */
 
   /* Infinite loop */
@@ -115,9 +128,26 @@ int main(void)
     //mpu6050_dmp_get_data(&buff[0],&buff[1],&buff[2]);
     //while(mpu6050_dmp_get_data(&buff[0],&buff[1],&buff[2])!=0){}
     // while(mpu6050_dmp_get_data(&pitch,&roll,&yaw)!=0){}
-    mpu6050_filter_angle();
-    print(&huart1,"%.2f %.2f %.2f\r\n",pitch,roll,yaw);
-   // HAL_Delay(2);
+
+     //   LCD_ShowChinese(0,0,"中景园电子",RED,WHITE,32,0);
+	//	LCD_ShowString(0,40,"LCD_W:",RED,WHITE,16,0);
+	//	LCD_ShowIntNum(48,40,LCD_W,3,RED,WHITE,16);
+	//	LCD_ShowString(80,40,"LCD_H:",RED,WHITE,16,0);
+	//	LCD_ShowIntNum(128,40,LCD_H,3,RED,WHITE,16);
+	//	LCD_ShowString(80,40,"LCD_H:",RED,WHITE,16,0);
+	//	LCD_ShowString(0,70,"Increaseing Nun:",RED,WHITE,16,0);
+	//	LCD_ShowFloatNum1(128,70,t,4,RED,WHITE,16);
+	//	t+=0.11;
+	//	for(j=0;j<3;j++)
+	//	{
+	//		for(i=0;i<6;i++)
+	//		{
+	//			LCD_ShowPicture(40*i,120+j*40,40,40,gImage_1);
+	//		}
+	//	}
+
+  //  mpu6050_filter_angle();
+   // print(&huart1,"%.2f %.2f %.2f\r\n",pitch,roll,yaw);
 
   }
   /* USER CODE END 3 */
