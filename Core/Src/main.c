@@ -31,6 +31,7 @@
 #include "lcd_init.h"
 #include "lcd.h"
 #include "pic.h"
+#include "vofa.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -106,8 +107,6 @@ int main(void)
   LCD_Init();
   LCD_Fill(0,0,LCD_W,LCD_H,WHITE);
 
-  FS_Debug("start\r\n");
-
   uint8_t i,j;
   float t=0;
 
@@ -129,24 +128,25 @@ int main(void)
     //while(mpu6050_dmp_get_data(&buff[0],&buff[1],&buff[2])!=0){}
     // while(mpu6050_dmp_get_data(&pitch,&roll,&yaw)!=0){}
 
-     //   LCD_ShowChinese(0,0,"中景园电子",RED,WHITE,32,0);
-	//	LCD_ShowString(0,40,"LCD_W:",RED,WHITE,16,0);
-	//	LCD_ShowIntNum(48,40,LCD_W,3,RED,WHITE,16);
-	//	LCD_ShowString(80,40,"LCD_H:",RED,WHITE,16,0);
-	//	LCD_ShowIntNum(128,40,LCD_H,3,RED,WHITE,16);
-	//	LCD_ShowString(80,40,"LCD_H:",RED,WHITE,16,0);
-	//	LCD_ShowString(0,70,"Increaseing Nun:",RED,WHITE,16,0);
-	//	LCD_ShowFloatNum1(128,70,t,4,RED,WHITE,16);
-	//	t+=0.11;
-	//	for(j=0;j<3;j++)
-	//	{
-	//		for(i=0;i<6;i++)
-	//		{
-	//			LCD_ShowPicture(40*i,120+j*40,40,40,gImage_1);
-	//		}
-	//	}
+  //   LCD_ShowChinese(0,0,"中景园电子",RED,WHITE,32,0);
+		// LCD_ShowString(0,40,"LCD_W:",RED,WHITE,16,0);
+		// LCD_ShowIntNum(48,40,LCD_W,3,RED,WHITE,16);
+		// LCD_ShowString(80,40,"LCD_H:",RED,WHITE,16,0);
+		// LCD_ShowIntNum(128,40,LCD_H,3,RED,WHITE,16);
+		// LCD_ShowString(80,40,"LCD_H:",RED,WHITE,16,0);
+		// LCD_ShowString(0,70,"Increaseing Nun:",RED,WHITE,16,0);
+		// LCD_ShowFloatNum1(128,70,t,4,RED,WHITE,16);
+		// t+=0.11;
+		// for(j=0;j<3;j++)
+		// {
+		// 	for(i=0;i<6;i++)
+		// 	{
+		// 		LCD_ShowPicture(40*i,120+j*40,40,40,gImage_1);
+		// 	}
+		// }
 
-  //  mpu6050_filter_angle();
+    mpu6050_filter_angle();
+    Vofa_print("%.2f,%.2f,%.2f\r\n",pitch,roll,yaw);
    // print(&huart1,"%.2f %.2f %.2f\r\n",pitch,roll,yaw);
 
   }
