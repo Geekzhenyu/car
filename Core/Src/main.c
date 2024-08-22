@@ -20,6 +20,7 @@
 #include "main.h"
 #include "i2c.h"
 #include "spi.h"
+#include "tim.h"
 #include "usart.h"
 #include "gpio.h"
 
@@ -32,6 +33,7 @@
 #include "lcd.h"
 #include "pic.h"
 #include "vofa.h"
+#include "pca.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -102,6 +104,10 @@ int main(void)
   MX_I2C2_Init();
   MX_USART1_UART_Init();
   MX_SPI2_Init();
+  MX_TIM2_Init();
+  MX_TIM3_Init();
+  MX_TIM4_Init();
+  MX_TIM5_Init();
   /* USER CODE BEGIN 2 */
   mpu6050_dmp_init();
   LCD_Init();
@@ -128,22 +134,22 @@ int main(void)
     //while(mpu6050_dmp_get_data(&buff[0],&buff[1],&buff[2])!=0){}
     // while(mpu6050_dmp_get_data(&pitch,&roll,&yaw)!=0){}
 
-  //   LCD_ShowChinese(0,0,"中景园电子",RED,WHITE,32,0);
-		// LCD_ShowString(0,40,"LCD_W:",RED,WHITE,16,0);
-		// LCD_ShowIntNum(48,40,LCD_W,3,RED,WHITE,16);
-		// LCD_ShowString(80,40,"LCD_H:",RED,WHITE,16,0);
-		// LCD_ShowIntNum(128,40,LCD_H,3,RED,WHITE,16);
-		// LCD_ShowString(80,40,"LCD_H:",RED,WHITE,16,0);
-		// LCD_ShowString(0,70,"Increaseing Nun:",RED,WHITE,16,0);
-		// LCD_ShowFloatNum1(128,70,t,4,RED,WHITE,16);
-		// t+=0.11;
-		// for(j=0;j<3;j++)
-		// {
-		// 	for(i=0;i<6;i++)
-		// 	{
-		// 		LCD_ShowPicture(40*i,120+j*40,40,40,gImage_1);
-		// 	}
-		// }
+    LCD_ShowChinese(0,0,"中景园电�?",RED,WHITE,32,0);
+		LCD_ShowString(0,40,"LCD_W:",RED,WHITE,16,0);
+		LCD_ShowIntNum(48,40,LCD_W,3,RED,WHITE,16);
+		LCD_ShowString(80,40,"LCD_H:",RED,WHITE,16,0);
+		LCD_ShowIntNum(128,40,LCD_H,3,RED,WHITE,16);
+		LCD_ShowString(80,40,"LCD_H:",RED,WHITE,16,0);
+		LCD_ShowString(0,70,"Increaseing Nun:",RED,WHITE,16,0);
+		LCD_ShowFloatNum1(128,70,t,4,RED,WHITE,16);
+		t+=0.11;
+		for(j=0;j<3;j++)
+		{
+			for(i=0;i<6;i++)
+			{
+				LCD_ShowPicture(40*i,120+j*40,40,40,gImage_1);
+			}
+		}
 
     mpu6050_filter_angle();
     Vofa_print("%.2f,%.2f,%.2f\r\n",pitch,roll,yaw);

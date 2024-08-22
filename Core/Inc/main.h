@@ -57,8 +57,14 @@ void Error_Handler(void);
 /* USER CODE END EFP */
 
 /* Private defines -----------------------------------------------------------*/
-#define LCD_BLK_Pin GPIO_PIN_5
-#define LCD_BLK_GPIO_Port GPIOC
+#define E4_Pin GPIO_PIN_0
+#define E4_GPIO_Port GPIOA
+#define E3_Pin GPIO_PIN_1
+#define E3_GPIO_Port GPIOA
+#define E1_Pin GPIO_PIN_6
+#define E1_GPIO_Port GPIOA
+#define E2_Pin GPIO_PIN_7
+#define E2_GPIO_Port GPIOA
 #define LED_Pin GPIO_PIN_0
 #define LED_GPIO_Port GPIOB
 #define LCD_DC_Pin GPIO_PIN_1
@@ -71,10 +77,26 @@ void Error_Handler(void);
 #define SPI_CLK_GPIO_Port GPIOB
 #define SPI_MOSI_Pin GPIO_PIN_15
 #define SPI_MOSI_GPIO_Port GPIOB
+#define CS_Pin GPIO_PIN_6
+#define CS_GPIO_Port GPIOC
+#define CLK_Pin GPIO_PIN_7
+#define CLK_GPIO_Port GPIOC
+#define MISO_Pin GPIO_PIN_8
+#define MISO_GPIO_Port GPIOC
+#define MOSI_Pin GPIO_PIN_9
+#define MOSI_GPIO_Port GPIOC
 #define LCD_RES_Pin GPIO_PIN_8
 #define LCD_RES_GPIO_Port GPIOA
+#define E6_Pin GPIO_PIN_15
+#define E6_GPIO_Port GPIOA
+#define E5_Pin GPIO_PIN_3
+#define E5_GPIO_Port GPIOB
 #define LCD_CS_Pin GPIO_PIN_4
 #define LCD_CS_GPIO_Port GPIOB
+#define E7_Pin GPIO_PIN_6
+#define E7_GPIO_Port GPIOB
+#define E8_Pin GPIO_PIN_7
+#define E8_GPIO_Port GPIOB
 
 /* USER CODE BEGIN Private defines */
 

@@ -9,11 +9,11 @@
 // 按printf格式写，最后必须加\r\n
 void Vofa_print(const char *format, ...)
 {
-    uint8_t txBuffer[124];
+    uint8_t txBuffer[128];
     uint32_t n;
     va_list args;
     va_start(args, format);
-    n = vsnprintf((char *)txBuffer, 124, format, args);
+    n = vsnprintf((char *)txBuffer, 128, format, args);
     //....在此替换你的串口发送函数...........
     HAL_UART_Transmit(&huart1, (uint8_t *)txBuffer, n,100);
     //......................................
